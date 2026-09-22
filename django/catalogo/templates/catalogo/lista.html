@@ -1,0 +1,23 @@
+{% extends 'catalogo/base.html' %}
+{% block titulo %}Productos{% endblock %}
+{% block contenido %}
+<h2>Productos disponibles</h2>
+{% if categoria_seleccionada %}
+    <h3>Filtrado por categoría: {{ categoria_seleccionada.nombre }}</h3>
+    <p><a href="{% url 'producto_lista' %}">❌ Quitar filtro</a></p>
+{% endif %}
+
+<ul>
+    {% for p in productos %}
+    <li>
+        <!-- Aquí modificamos para poner el enlace dinámico -->
+        <strong><a href="{% url 'producto_detalle' p.id %}">{{ p.nombre }}</a></strong>
+        — {{ p.categoria.nombre }}
+        — ${{ p.precio }}
+        {% if p.stock == 0 %}<em>(sin stock)</em>{% endif %}
+    </li>
+    {% empty %}
+    <li>No hay productos cargados todavía.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

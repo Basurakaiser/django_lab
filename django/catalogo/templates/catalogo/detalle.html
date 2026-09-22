@@ -1,0 +1,22 @@
+{% extends 'catalogo/base.html' %}
+
+{% block titulo %}Detalle - {{ producto.nombre }}{% endblock %}
+
+{% block contenido %}
+<h2>Detalle del Producto</h2>
+<p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+<p><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
+<p><strong>Precio:</strong> ${{ producto.precio }}</p>
+<p><strong>Stock actual:</strong> {{ producto.stock }} unidades</p>
+
+<p><strong>Disponibilidad:</strong> 
+    {% if producto.activo and producto.stock > 0 %}
+        <span style="color: green;">Disponible para venta</span>
+    {% else %}
+        <span style="color: red;">No disponible temporalmente</span>
+    {% endif %}
+</p>
+
+<hr>
+<a href="{% url 'producto_lista' %}">◀ Volver al catálogo</a>
+{% endblock %}
